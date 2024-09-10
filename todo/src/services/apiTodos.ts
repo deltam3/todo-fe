@@ -33,7 +33,12 @@ export async function deleteTodo(id: number) {
 export async function updateTodoDone(temp: any) {
   console.log(temp);
   const id = temp[0];
-  const done = temp[1];
+  let done = temp[1];
+  if (done == false) {
+    done = 1;
+  } else {
+    done = 0;
+  }
   try {
     const response = await axios.patch(`${url}/${id}`, { done });
   } catch (err) {
