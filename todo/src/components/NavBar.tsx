@@ -3,9 +3,12 @@ import Link from "next/link";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
 const Navbar = () => {
   const [user, setUser] = useState();
+  const router = useRouter();
 
   useEffect(() => {
     const data = window.localStorage.getItem("user");
@@ -27,6 +30,22 @@ const Navbar = () => {
     }
   }, []);
 
+  function deleteCookie(name) {
+    document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+  }
+
+  const handleLogout = async () => {
+    try {
+      await axios.post("http://localhost:8001/auth/logout");
+
+      window.localStorage.removeItem("user");
+      deleteCookie("sessionCookie");
+      window.location.reload();
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
+
   return (
     <nav className="sticky z-[100] h-14 inset-x-0 top-0 w-full border-b border-gray-200 bg-white/75 backdrop-blur-lg transition-all">
       <MaxWidthWrapper>
@@ -44,6 +63,7 @@ const Navbar = () => {
           {user && (
             <>
               <p>{user}</p>
+              <button onClick={handleLogout}>로그아웃</button>
             </>
           )}
         </div>
