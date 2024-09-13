@@ -29,9 +29,9 @@ export function PostLogin() {
   const { mutate, isPending } = useMutation({
     mutationFn: (user) => login(user),
     onSuccess: (user) => {
-      console.log(user);
+      console.log(user.data);
 
-      queryClient.setQueryData("user", user?.data);
+      window.localStorage.setItem("user", JSON.stringify(user.data));
 
       // invalidate other queries related to user data
       // queryClient.invalidateQueries('user');

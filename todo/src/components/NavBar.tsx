@@ -2,16 +2,30 @@
 import Link from "next/link";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import { useQueryClient } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
-  // const { getUser } = getKindeServerSession();
-  // const user = await getUser();
-  // const isAdmin = user?.email === process.env.ADMIN_EMAIL;
+  const [user, setUser] = useState();
 
-  const queryClient = useQueryClient();
+  useEffect(() => {
+    const data = window.localStorage.getItem("user");
 
-  // Access the user data from the cache
-  const user = queryClient.getQueryData("user");
+    if (data) {
+      try {
+        const parsedData = JSON.parse(data);
+
+        if (parsedData && parsedData.nick) {
+          setUser(parsedData.nick);
+        } else {
+          console.warn("User data is missing expected properties:", parsedData);
+        }
+      } catch (error) {
+        console.error("Failed to parse user data:", error);
+      }
+    } else {
+      console.log("No user data found in localStorage.");
+    }
+  }, []);
 
   return (
     <nav className="sticky z-[100] h-14 inset-x-0 top-0 w-full border-b border-gray-200 bg-white/75 backdrop-blur-lg transition-all">
@@ -29,8 +43,7 @@ const Navbar = () => {
 
           {user && (
             <>
-              <p>{user.nick}</p>
-              <p>{user.email}</p>
+              <p>{user}</p>
             </>
           )}
         </div>
