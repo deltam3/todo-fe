@@ -25,9 +25,10 @@ export default function Home() {
         </div>
 
         <ul>
-          {todos.map((todo: TodoItemType) => {
-            return <TodoItem key={todo.id} todo={todo} />;
-          })}
+          {todos &&
+            todos.map((todo: TodoItemType) => {
+              return <TodoItem key={todo.id} todo={todo} />;
+            })}
         </ul>
       </MaxWidthWrapper>
     </main>

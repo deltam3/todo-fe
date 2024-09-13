@@ -31,7 +31,6 @@ export async function deleteTodo(id: number) {
 }
 
 export async function updateTodoDone(temp: any) {
-  console.log(temp);
   const id = temp[0];
   let done = temp[1];
   if (done == false) {

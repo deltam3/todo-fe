@@ -1,6 +1,7 @@
+import Navbar from "@/components/NavBar";
 import "./globals.css";
 import QueryProvider from "@/providers/QueryProvider";
-
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -9,8 +10,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {/* <Navbar /> */}
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          <ReactQueryDevtools initialIsOpen={false} />
+          <Navbar />
+
+          {children}
+        </QueryProvider>
       </body>
     </html>
   );
