@@ -1,17 +1,38 @@
+import { useToast } from "@/hooks/use-toast";
 import { postJoin } from "@/services/apiAuth";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
-export function PostJoin() {
-  const queryClient = useQueryClient();
-  const router = useRouter();
+interface User {
+  email: string;
+  nick: string;
+}
 
-  const { mutate, isPending } = useMutation({
+export function PostJoin() {
+  const router = useRouter();
+  const { toast } = useToast();
+
+  const { mutate, isPending } = useMutation<
+    User,
+    Error,
+    { email: string; nick: string; password: string }
+  >({
     mutationFn: (user) => postJoin(user),
-    onSuccess: () => {
+
+    onSuccess: (user) => {
+      window.localStorage.setItem("user", JSON.stringify(user));
       router.push("/");
+      setTimeout(() => {
+        window.location.reload();
+      }, 600);
     },
-    onError: (user) => {},
+    onError: (err) => {
+      toast({
+        title: "에러 발생",
+        description: `${err}`,
+        variant: "destructive",
+      });
+    },
   });
 
   return { mutate, isPending };

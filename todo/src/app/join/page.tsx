@@ -1,4 +1,7 @@
 "use client";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { PostJoin } from "@/features/auth/postJoin";
 import React, { useState } from "react";
 
@@ -11,48 +14,52 @@ const Page = () => {
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    postJoin([email, nick, password]);
+    postJoin({ email, nick, password });
   };
 
   return (
-    <div>
-      <h1>JOIN</h1>
-      {/* <form id="join-form" action="/auth/join" method="post"> */}
+    <div className="max-w-[30rem] mx-auto py-4">
+      <h1 className="text-bold text-[22px]">회원가입</h1>
       <form id="join-form" onSubmit={submitHandler}>
         <div>
-          <label htmlFor="join-email">이메일</label>
-          <input
+          <Label htmlFor="join-email">이메일</Label>
+          <Input
             id="join-email"
             type="email"
             name="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-          ></input>
+          />
         </div>
         <div>
-          <label htmlFor="join-nick">닉네임</label>
-          <input
+          <Label htmlFor="join-nick">닉네임</Label>
+          <Input
             id="join-nick"
             type="text"
             name="nick"
             value={nick}
             onChange={(e) => setNick(e.target.value)}
-          ></input>
+          />
         </div>
         <div>
-          <label htmlFor="join-password">비밀번호</label>
-          <input
+          <Label htmlFor="join-password">비밀번호</Label>
+          <Input
             id="join-password"
             type="password"
             name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-          ></input>
+          />
         </div>
-
-        <button type="submit" onClick={submitHandler}>
-          회원가입
-        </button>
+        <div className="flex justify-end py-4">
+          <Button
+            type="submit"
+            loadingText="회원가입중..."
+            isLoading={isPending}
+          >
+            회원가입
+          </Button>
+        </div>
       </form>
     </div>
   );

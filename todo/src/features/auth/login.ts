@@ -1,29 +1,31 @@
+import { useToast } from "@/hooks/use-toast";
 import { login } from "@/services/apiAuth";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
+
 import { useRouter } from "next/navigation";
 
 export function PostLogin() {
-  const queryClient = useQueryClient();
   const router = useRouter();
+  const { toast } = useToast();
 
   const { mutate, isPending } = useMutation({
-    mutationFn: (user) => login(user),
+    mutationFn: (user: { email: string; password: string }) => login(user),
     onSuccess: (user) => {
-      console.log(user.data);
+      if (user) {
+        window.localStorage.setItem("user", JSON.stringify(user));
+        router.push("/");
 
-      window.localStorage.setItem("user", JSON.stringify(user.data));
-
-      // invalidate other queries related to user data
-      // queryClient.invalidateQueries('user');
-
-      router.push("/");
-
-      setTimeout(() => {
-        window.location.reload();
-      }, 1);
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      }
     },
     onError: (error) => {
-      console.error("Login failed:", error);
+      toast({
+        title: "에러 발생",
+        description: `${error}`,
+        variant: "destructive",
+      });
     },
   });
 
