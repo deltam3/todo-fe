@@ -35,7 +35,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URl}/auth/logout`, {
+      await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/auth/logout`, {
         withCredentials: true,
       });
       window.localStorage.removeItem("user");

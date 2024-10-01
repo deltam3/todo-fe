@@ -10,7 +10,7 @@ export async function postJoin(user: {
 }): Promise<User> {
   try {
     const response = await axios.post<User>(
-      `${process.env.NEXT_PUBLIC_SERVER_URl}/auth/login`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/join`,
       {
         email: user.email,
         nick: user.nick,
@@ -21,9 +21,9 @@ export async function postJoin(user: {
     return response.data;
   } catch (err: unknown) {
     if (axios.isAxiosError(err)) {
-      throw new Error(err.response?.data?.message || "에러 발생");
+      throw new Error(err.response?.data?.message || "가입 실패");
     } else {
-      throw new Error("알 수 없는 에러 발생");
+      throw new Error("예상치 못한 에러 발생");
     }
   }
 }
@@ -34,7 +34,7 @@ export const login = async (user: {
 }): Promise<{ data: User } | { error: string }> => {
   try {
     const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_SERVER_URl}/auth/login`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/login`,
       {
         email: user.email,
         password: user.password,

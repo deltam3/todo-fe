@@ -17,7 +17,7 @@ export function PostLogin() {
 
         setTimeout(() => {
           window.location.reload();
-        }, 500);
+        }, 700);
       }
     },
     onError: (error) => {

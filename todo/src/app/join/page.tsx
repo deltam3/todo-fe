@@ -10,11 +10,11 @@ const Page = () => {
   const [nick, setNick] = useState("");
   const [password, setPassword] = useState("");
 
-  const { mutate: postJoin, isPending } = PostJoin();
+  const { mutate, isPending } = PostJoin();
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    postJoin({ email, nick, password });
+    mutate({ email, nick, password });
   };
 
   return (

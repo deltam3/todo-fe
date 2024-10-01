@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = `${process.env.NEXT_PUBLIC_SERVER_URl}/todos`;
+const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/todos`;
 
 axios.defaults.withCredentials = true;
 
