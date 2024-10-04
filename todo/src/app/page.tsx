@@ -65,7 +65,11 @@ export default function Home() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {todos &&
+            {/* {todos &&
+              todos.map((todo: TodoItemType) => {
+                return <TodoItem key={todo.id} todo={todo} />;
+              })} */}
+            {Array.isArray(todos) &&
               todos.map((todo: TodoItemType) => {
                 return <TodoItem key={todo.id} todo={todo} />;
               })}
