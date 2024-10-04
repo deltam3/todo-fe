@@ -7,6 +7,8 @@ import { constructMetadata } from "@/lib/utils";
 
 export const metadata = constructMetadata();
 
+import Head from "next/head";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -14,6 +16,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
+      <Head>
+        <meta
+          http-equiv="Content-Security-Policy"
+          content="upgrade-insecure-requests"
+        />
+      </Head>
       <body>
         <QueryProvider>
           <Navbar />
