@@ -1,7 +1,7 @@
 <p align="middle" >
 
 
-     <img width="200px;" src="https://github.com/user-attachments/assets/52c86b73-0e07-4901-adbc-d46094650314.png" alt="chim-logo"/>
+     <img width="200px;" src="https://github.com/user-attachments/assets/52c86b73-0e07-4901-adbc-d46094650314" alt="chim-logo"/>
 </p>
 <h1 align="middle">침Todo</h1>
 <h3 align="middle">침착맨 방송 컨텐츠 추천 시스템</h3>
